@@ -5,7 +5,7 @@
 
 COLORS = {
 	predicted: 'blue',
-	hovered: 'yellow',
+	hovered: '#ff9231',
 	rated: 'orange',
 };
 
