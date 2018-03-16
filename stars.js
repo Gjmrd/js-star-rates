@@ -24,11 +24,11 @@ function colorStars(rate, starTarget, color){
 
     for (i = 0; i < stars.length; i++){
         if (i < rate)
-            stars[i].childNodes[0].childNodes[1].style.fill = color;
+            stars[i].querySelector("path").style.fill = color;
         else 
-            stars[i].childNodes[0].childNodes[1].style.fill = "none";
+            stars[i].querySelector("path").style.fill = "none";
         
-        stars[i].childNodes[0].childNodes[1].style.stroke = color;
+        stars[i].querySelector("path").style.stroke = color;
     }
 }
 
