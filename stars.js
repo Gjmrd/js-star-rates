@@ -22,16 +22,12 @@ function colorStars(rate, starTarget, color){
 
 	var stars = starTarget.closest("ul").getElementsByClassName('star');
 
-	for (i = 0; i < stars.length; i++)
-	{
+	for (i = 0; i < stars.length; i++){
 		if (i < rate)
-		{
 			stars[i].childNodes[0].childNodes[1].style.fill = color;
-		}
 		else 
-		{
 			stars[i].childNodes[0].childNodes[1].style.fill = "none";
-		}
+		
 		stars[i].childNodes[0].childNodes[1].style.stroke = color;
 	}
 }
