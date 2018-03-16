@@ -32,10 +32,7 @@ function colorStars(rate, starTarget, color){
 		{
 			stars[i].childNodes[0].childNodes[1].style.fill = "none";
 		}
-<<<<<<< HEAD
 		stars[i].childNodes[0].childNodes[1].style.stroke = color;
-=======
->>>>>>> js-star-rates/master
 	}
 }
 
