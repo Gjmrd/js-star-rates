@@ -22,13 +22,18 @@ function colorStars(rate, starTarget, color){
 
     var stars = starTarget.closest("ul").getElementsByClassName('star');
 
+    var starPathStyle;
+
     for (i = 0; i < stars.length; i++){
+
+        starPathStyle = stars[i].querySelector("path").style;
+
         if (i < rate)
-            stars[i].querySelector("path").style.fill = color;
+            starPathStyle.fill = color;
         else 
-            stars[i].querySelector("path").style.fill = "none";
+            starPathStyle.fill = "none";
         
-        stars[i].querySelector("path").style.stroke = color;
+        starPathStyle.stroke = color;
     }
 }
 
@@ -60,16 +65,19 @@ $('.star').click(function(event)
 {
     event.preventDefault();
 
-    var title_id = event.currentTarget.closest('.block-stars').getAttribute('data-title_id');
+    var blockStars = event.currentTarget.closest('.block-stars');
+
+    var title_id = blockStars.getAttribute('data-title_id');
     var score = event.currentTarget.getAttribute('data-star_id');
+
 
     //console.log(score);
     //console.log(title_id);
 
 
     /* updating info about score in HTML */
-    event.currentTarget.closest(".block-stars").setAttribute('data-stars', score); 
-    event.currentTarget.closest(".block-stars").setAttribute('data-is_predicted', false);
+    blockStars.setAttribute('data-stars', score); 
+    event.currentTarget.closest('.block-stars').setAttribute('data-is_predicted', false);
     colorStars(score, event.target, COLORS.rated);
     /*
     $.ajax({
