@@ -1,35 +1,35 @@
 .star{
-	height: 14px;
-	width: 7px!important;
+    height: 14px;
+    width: 7px!important;
 }
 
 /* margin between stars */
 
 .star:last-child{
-	margin-right: 3px;
+    margin-right: 3px;
 }
 
 .star > svg{
-	enable-background:new 0 0 8.7 16.7;
+    enable-background:new 0 0 8.7 16.7;
 }
 
 /* left half-star */
 .st0{
-	fill:none;
-	stroke:#000;
-	stroke-width:0.5;
+    fill:none;
+    stroke:#000;
+    stroke-width:0.5;
 }
 
 /* right half-star */
 
 .st1{
-	fill:none;
-	stroke:#000;
-	stroke-width:0.5;
-	transform: scaleY(-1) rotate(180deg);transform-origin: center;
+    fill:none;
+    stroke:#000;
+    stroke-width:0.5;
+    transform: scaleY(-1) rotate(180deg);transform-origin: center;
 }
 
 
 .w3l-ratings > li{
-	display: inline-flex;
+    display: inline-flex;
 }
