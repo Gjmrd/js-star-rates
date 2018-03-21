@@ -2,88 +2,97 @@
 
 
 /* put your color hex-codes in const below */
-
 COLORS = {
-    predicted: 'blue',
-    hovered: '#ff9231',
-    rated: 'orange',
+	default: 'blue',
+	hovered: 'green',
+	rated: 'orange',
 };
+
+
+$(document).ready(function() {
+	var blocks = $('.block-stars');
+
+	for (var i = 0; i < blocks.length; i++) {
+		var currentScore = blocks[i].getAttribute('data-score');
+		var isDefault = blocks[i].getAttribute('data-default');
+
+		colorStars(currentScore, blocks[i].querySelector('ul'), (isDefault) ? COLORS.default : COLORS.rated);
+	}
+});
+
 
 /* 
 function coloring stars
-
 args
     rate: rating,
     starTarget: object that triggered listener,
     color: chosen color
  */
- 
-function colorStars(rate, starTarget, color){
+function colorStars(rate, starTarget, color) {
 
-    var stars = starTarget.closest("ul").getElementsByClassName('star');
-    var starPathStyle;
+	var stars = starTarget.closest("ul").getElementsByClassName('star-half');
+	var starPathStyle;
 
-    for (i = 0; i < stars.length; i++){
-        starPathStyle = stars[i].querySelector("path").style;
-        if (i < rate)
-            starPathStyle.fill = color;
-        else 
-            starPathStyle.fill = "none";
-        starPathStyle.stroke = color;
-    }
+
+	for (i = 0; i < stars.length; i++) {
+
+		starPathStyle = stars[i].querySelector("path").style;
+
+		if (i < rate)
+			starPathStyle.fill = color;
+		else
+			starPathStyle.fill = "none";
+
+		starPathStyle.stroke = color;
+	}
 }
 
-
 /* coloring stars on mouse moving */
+$('.star-half').mouseover(function (event) {
+	var rate = event.currentTarget.getAttribute('data-star_half_id')
+	console.log('rate');
+	colorStars(rate, event.currentTarget, COLORS.hovered);
 
-$('.star').mouseover(function(event)
-{
-    var rate = event.currentTarget.getAttribute('data-star_id');
-
-    colorStars(rate, event.target, COLORS.hovered);
 });
 
-$('.block-stars').mouseleave(function(event)
-{
-    var currentScore = event.currentTarget.getAttribute('data-stars');
-    var isPredicted = event.currentTarget.closest(".block-stars").getAttribute('data-is_predicted');
+$('.block-stars').mouseleave(function (event) {
+	var currentScore = event.currentTarget.getAttribute('data-score');
+	var isDefault = event.currentTarget.closest(".block-stars").getAttribute('data-default');
 
-    colorStars(currentScore, event.target, COLORS.rated)
+	colorStars(currentScore, event.target, (isDefault=="true") ? COLORS.default : COLORS.rated);
+
 });
-
-
 
 /* coloring stars and sending rate request */
+$('.star-half').click(function (event) {
+	event.preventDefault();
 
-$('.star').click(function(event)
-{
-    event.preventDefault();
+	var blockStars = event.currentTarget.closest('.block-stars');
 
-    var blockStars = event.currentTarget.closest('.block-stars');
-    var title_id = blockStars.getAttribute('data-title_id');
-    var score = event.currentTarget.getAttribute('data-star_id');
+	var title_id = blockStars.getAttribute('data-title_id');
+	var url = blockStars.getAttribute('data-rate_url');
+	var score = event.currentTarget.getAttribute('data-star_half_id');
 
-    /* updating info about score in HTML */
-   
-    $.ajax({
-        type: 'POST',
-        url:'UserRate/rate',
-        data: {
-            title_id: title_id,
-            score: score,
-        },
-        success: function(data){
-        	if (data['code'] == "204"){
-        			blockStars.setAttribute('data-stars', score); 
-    		 		blockStars.setAttribute('data-is_predicted', false);
-    		 		colorStars(score, event.target, COLORS.rated);
-        		}
-        	else 
-        		console.log(data['code'] +' : '+data['message']);
 
-        },
-    });
-    
+	//console.log(score);
+	//console.log(title_id);
+
+	$.ajax({
+		type: 'POST',
+		url: url,
+		contentType: 'application/json; charset=UTF-8',
+		dataType: 'json',
+		data: JSON.stringify({ "title_id": title_id, "score": score }),
+		success: function (data, statusText, jqXHR) {
+			if (jqXHR.status == "204") {
+				blockStars.setAttribute('data-score', score);
+				blockStars.setAttribute('data-default', false);
+				colorStars(score, event.target, COLORS.rated);
+				console.log('success!');
+			}
+			else {
+				console.log(jqXHR.status + ' : ' + jqXHR.statusText);
+			}
+		}
+	});
 });
-
-
