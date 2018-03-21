@@ -31,5 +31,5 @@
 
 
 .w3l-ratings > li{
-    display: inline-flex;
+    display: inline-flex!important;
 }
