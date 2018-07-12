@@ -24,9 +24,9 @@ $(document).ready(function() {
 /* 
 function coloring stars
 args
-    rate: rating,
-    starTarget: object that triggered listener,
-    color: chosen color
+    rate       : rating,
+    starTarget : object that triggered listener,
+    color      : chosen color
  */
 function colorStars(rate, starTarget, color) {
 
