@@ -78,12 +78,12 @@ $('.star-half').click(function (event) {
 	//console.log(title_id);
 
 	$.ajax({
-		type: 'POST',
-		url: url,
-		contentType: 'application/json; charset=UTF-8',
-		dataType: 'json',
-		data: JSON.stringify({ "title_id": title_id, "score": score }),
-		success: function (data, statusText, jqXHR) {
+		type        : 'POST',
+		url         : url,
+		contentType : 'application/json; charset=UTF-8',
+		dataType    : 'json',
+		data        : JSON.stringify({ "title_id": title_id, "score": score }),
+		success     : function (data, statusText, jqXHR) {
 			if (jqXHR.status == "204") {
 				blockStars.setAttribute('data-score', score);
 				blockStars.setAttribute('data-default', false);
