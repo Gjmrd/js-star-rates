@@ -3,9 +3,9 @@
 
 /* put your color hex-codes in const below */
 COLORS = {
-	default: 'blue',
-	hovered: 'green',
-	rated: 'orange',
+	default : 'blue',
+	hovered : 'green',
+	rated   : 'orange',
 };
 
 
@@ -14,7 +14,7 @@ $(document).ready(function() {
 
 	for (var i = 0; i < blocks.length; i++) {
 		var currentScore = blocks[i].getAttribute('data-score');
-		var isDefault = blocks[i].getAttribute('data-default');
+		var isDefault    = blocks[i].getAttribute('data-default');
 
 		colorStars(currentScore, blocks[i].querySelector('ul'), (isDefault) ? COLORS.default : COLORS.rated);
 	}
@@ -57,7 +57,7 @@ $('.star-half').mouseover(function (event) {
 
 $('.block-stars').mouseleave(function (event) {
 	var currentScore = event.currentTarget.getAttribute('data-score');
-	var isDefault = event.currentTarget.closest(".block-stars").getAttribute('data-default');
+	var isDefault    = event.currentTarget.closest(".block-stars").getAttribute('data-default');
 
 	colorStars(currentScore, event.target, (isDefault=="true") ? COLORS.default : COLORS.rated);
 
@@ -70,8 +70,8 @@ $('.star-half').click(function (event) {
 	var blockStars = event.currentTarget.closest('.block-stars');
 
 	var title_id = blockStars.getAttribute('data-title_id');
-	var url = blockStars.getAttribute('data-rate_url');
-	var score = event.currentTarget.getAttribute('data-star_half_id');
+	var url      = blockStars.getAttribute('data-rate_url');
+	var score    = event.currentTarget.getAttribute('data-star_half_id');
 
 
 	//console.log(score);
